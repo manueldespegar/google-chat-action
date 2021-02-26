@@ -1,10 +1,13 @@
 const core = require('@actions/core');
 const wait = require('./wait');
+const sendNotification = require('./send_notification')
 
 
 // most @actions toolkit packages have async methods
 async function run() {
   try {
+
+    sendNotification()
     const ms = core.getInput('milliseconds');
     core.info(`Waiting ${ms} milliseconds ...`);
 
