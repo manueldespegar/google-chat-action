@@ -29150,7 +29150,10 @@ var axios = __nccwpck_require__(6545);
 let sendNotification = function () {
     return new Promise((resolve, reject) => {
         try {
-            var data = '{"text" : "Hello from a Python script!"}';
+
+            const {owner, repo} = github.context.repo
+            
+            var data = '{"text" : "'+owner+' / PR '+repo+' "}';
 
             var config = {
               method: 'post',

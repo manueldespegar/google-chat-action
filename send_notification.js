@@ -7,8 +7,8 @@ let sendNotification = function () {
         try {
 
             const {owner, repo} = github.context.repo
-            const pullRequestPayload = github.context
-            var data = '{"text" : "'+owner+' / PR '+repo+'"}';
+            
+            var data = '{"text" : "'+owner+' / PR '+repo+' "}';
 
             var config = {
               method: 'post',
