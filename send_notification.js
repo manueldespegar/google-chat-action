@@ -11,6 +11,8 @@ let sendNotification = function () {
             const pullRequest = pullRequestPayload.pull_request
             var data = '{"text" : "'+owner+' - PR '+repo+' '+pullRequest.html_url+'  ('+pullRequest.title+')"}';
 
+
+            '[{{ EVENT_PAYLOAD.repository.name }}] {{ EVENT_PAYLOAD.pull_request.user.login }} opened {{ EVENT_PAYLOAD.pull_request.html_url }} {{ EVENT_PAYLOAD.pull_request.title }}'
             var config = {
               method: 'post',
               url: 'https://chat.googleapis.com/v1/spaces/AAAA7OKsf0M/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=2tWgZ47_zVfbjD96NyjOCHQqJapONCVDTSro4uhkwd8%3D',
