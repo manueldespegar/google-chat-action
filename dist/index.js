@@ -29148,10 +29148,9 @@ var axios = __nccwpck_require__(6545);
 
 
 let sendNotification = function () {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
         try {
-            console.log()
-            var data = 'PR';
+            var data = '{"text" : "Hello from a Python script!"}';
 
             var config = {
               method: 'post',
@@ -29162,7 +29161,8 @@ let sendNotification = function () {
               data : data
             };
             
-            response = axios(config)
+            let response = axios(config)
+            console.log(github.context)
           return resolve(response);
         } catch (error) {
           console.log("error :>> ", error);
