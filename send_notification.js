@@ -5,7 +5,10 @@ var axios = require('axios');
 let sendNotification = function () {
     return new Promise((resolve, reject) => {
         try {
-            var data = '{"text" : "Hello from a Python script!"}';
+
+            const {owner, repo} = github.context.repo
+            const pullRequestPayload = github.context
+            var data = '{"text" : "'+owner+' / PR '+repo+'"}';
 
             var config = {
               method: 'post',
