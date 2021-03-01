@@ -14,7 +14,6 @@ module.exports = JSON.parse("{\"_from\":\"@octokit/rest@^16.43.1\",\"_id\":\"@oc
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const core = __nccwpck_require__(2186);
-const wait = __nccwpck_require__(4258);
 const sendNotification = __nccwpck_require__(2913)
 
 
@@ -23,14 +22,7 @@ async function run() {
   try {
 
     sendNotification()
-    const ms = core.getInput('milliseconds');
-    core.info(`Waiting ${ms} milliseconds ...`);
-
-    core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-    await wait(parseInt(ms));
-    core.info((new Date()).toTimeString());
-
-    core.setOutput('time', new Date().toTimeString());
+    core.setOutput('url', new Date().toTimeString());
   } catch (error) {
     core.setFailed(error.message);
   }
@@ -29151,11 +29143,10 @@ let sendNotification = function () {
     return new Promise((resolve, reject) => {
         try {
 
-            const {owner, repo} = github.context.repo
+            const {repo} = github.context.repo
             const pullRequestPayload = github.context.payload
             const pullRequest = pullRequestPayload.pull_request
-            var data = '{"text" : "'+owner+' - PR '+repo+' '+pullRequest.html_url+'  ('+pullRequest.title+')"}';
-
+            var data = '{"text" : "['+repo+'] - PR '+pull_request.user.login+' opened '+pullRequest.html_url+'  ('+pullRequest.title+')"}';
             var config = {
               method: 'post',
               url: 'https://chat.googleapis.com/v1/spaces/AAAA7OKsf0M/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=2tWgZ47_zVfbjD96NyjOCHQqJapONCVDTSro4uhkwd8%3D',
@@ -29177,23 +29168,6 @@ let sendNotification = function () {
 
 
 module.exports = sendNotification;
-
-
-/***/ }),
-
-/***/ 4258:
-/***/ ((module) => {
-
-let wait = function (milliseconds) {
-  return new Promise((resolve) => {
-    if (typeof milliseconds !== 'number') {
-      throw new Error('milliseconds not a number');
-    }
-    setTimeout(() => resolve("done!"), milliseconds)
-  });
-};
-
-module.exports = wait;
 
 
 /***/ }),

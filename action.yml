@@ -1,12 +1,12 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'google-chat-notification'
+description: 'Google Chat Notification for GitHub Actions'
+author: 'manuelen12'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  url:
+    description: 'google chat webhook url.'
     required: true
-    default: '1000'
 outputs:
-  time: # output will be available to future steps
+  url: # output will be available to future steps
     description: 'The message to output'
 runs:
   using: 'node12'
