@@ -29146,7 +29146,7 @@ let sendNotification = function () {
           const {owner, repo} = github.context.repo
           const pullRequestPayload = github.context.payload
           const pullRequest = pullRequestPayload.pull_request
-          var data = '{"text" : "'+owner+' - PR '+repo+' '+pullRequest.html_url+'  ('+pullRequest.title+')"}';
+          var data = '{"text" : "['+owner+'/'+repo+'] - PR '+pullRequest.user.login+' opened '+pullRequest.html_url+'  ('+pullRequest.title+')"}';
 
           var config = {
             method: 'post',
