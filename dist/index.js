@@ -10,6 +10,30 @@ module.exports = JSON.parse("{\"_from\":\"@octokit/rest@^16.43.1\",\"_id\":\"@oc
 
 /***/ }),
 
+/***/ 2932:
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const core = __nccwpck_require__(2186);
+const github = __nccwpck_require__(5438);
+const sendNotification = __nccwpck_require__(2913)
+
+// most @actions toolkit packages have async methods
+async function run() {
+  try {
+    const url = core.getInput('url', {required: true})
+    core.info(github.context)
+    sendNotification(url, github.context)
+    core.setOutput('url', url);
+  } catch (error) {
+    core.setFailed(error.message);
+  }
+}
+
+run();
+
+
+/***/ }),
+
 /***/ 7351:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -29109,31 +29133,7 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 4351:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-const core = __nccwpck_require__(2186);
-const github = __nccwpck_require__(5438);
-const sendNotification = __nccwpck_require__(3023)
-
-// most @actions toolkit packages have async methods
-async function run() {
-  try {
-    const url = core.getInput('url', {required: true})
-    core.info(github.context)
-    sendNotification(url, github.context)
-    core.setOutput('url', url);
-  } catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run();
-
-
-/***/ }),
-
-/***/ 3023:
+/***/ 2913:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 var axios = __nccwpck_require__(6545);
@@ -29346,7 +29346,7 @@ module.exports = require("zlib");;
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nccwpck_require__(4351);
+/******/ 	return __nccwpck_require__(2932);
 /******/ })()
 ;
 //# sourceMappingURL=index.js.map
