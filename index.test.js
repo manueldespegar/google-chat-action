@@ -1,4 +1,4 @@
-const sendNotification = require('./src/send_notification');
+const sendNotification = require('./send_notification');
 const process = require('process');
 const cp = require('child_process');
 const path = require('path');
