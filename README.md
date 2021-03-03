@@ -1,3 +1,14 @@
+# Google-chat-action
+
+GITHUB ACTION PARA ENVIAR NOTIFICACIONES AL HACER PR
+
+### Equipo / Coordinación / Gerencia
+[aftersale-AgentTools](https://github.com/orgs/despegar/teams/aftersale-agenttools/members) / Mariano Fabian Longo	(mflongo@despegar.com) / Jorge Santoro	(jsantoro@despegar.com) 
+
+### Contacto
+[aftersale-agentTools-dev@despegar.com](mailto:aftersale-agentTools-dev@despegar.com)
+ 
+
 # Create a JavaScript Action
 
 <p align="center">
@@ -120,7 +131,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Google Chat Notification
-      uses: manueldespegar/google-chat-action@v0.0.1
+      uses: despegar/google-chat-action@v0.0.1
       with:
         url: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
 ```
