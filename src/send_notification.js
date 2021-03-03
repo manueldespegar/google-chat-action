@@ -1,19 +1,18 @@
-const github = require('@actions/github');
 var axios = require('axios');
 
 
-let sendNotification = function () {
+let sendNotification = function (url, context) {
     return new Promise((resolve, reject) => {
         try {
-
-          const {owner, repo} = github.context.repo
-          const pullRequestPayload = github.context.payload
+          const {owner, repo} = context.repo
+          const pullRequestPayload = context.payload
           const pullRequest = pullRequestPayload.pull_request
+
           var data = '{"text" : "['+owner+'/'+repo+'] - PR '+pullRequest.user.login+' opened '+pullRequest.html_url+'  ('+pullRequest.title+')"}';
 
           var config = {
             method: 'post',
-            url: 'https://chat.googleapis.com/v1/spaces/AAAA7OKsf0M/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=2tWgZ47_zVfbjD96NyjOCHQqJapONCVDTSro4uhkwd8%3D',
+            url: url,
             headers: { 
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -21,7 +20,6 @@ let sendNotification = function () {
           };
             
             let response = axios(config)
-            console.log(github.context)
           return resolve(response);
         } catch (error) {
           console.log("error :>> ", error);

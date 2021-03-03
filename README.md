@@ -103,14 +103,24 @@ Your action is now published! :rocket:
 
 See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
 
-## Usage
+### Usage
 
-You can now consume the action by referencing the v1 branch
+Add `notify.yml` to `.github/workflows/`
 
+> .github/workflows/notify.yml
 ```yaml
-uses: actions/javascript-action@v1
-with:
-  milliseconds: 1000
+name: notify
+on:
+  pull_request:
+    types: [opened, reopened, closed]
+  pull_request_review_comment:
+    types: [created]
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Google Chat Notification
+      uses: CommonMarvel/google-chat-notification@v1.1.1
+      with:
+        url: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
 ```
-
-See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:

@@ -10,29 +10,6 @@ module.exports = JSON.parse("{\"_from\":\"@octokit/rest@^16.43.1\",\"_id\":\"@oc
 
 /***/ }),
 
-/***/ 2932:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-const core = __nccwpck_require__(2186);
-const sendNotification = __nccwpck_require__(2913)
-
-
-// most @actions toolkit packages have async methods
-async function run() {
-  try {
-
-    sendNotification()
-    core.setOutput('url', new Date().toTimeString());
-  } catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run();
-
-
-/***/ }),
-
 /***/ 7351:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -29132,25 +29109,48 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 2913:
+/***/ 4351:
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const core = __nccwpck_require__(2186);
+const github = __nccwpck_require__(5438);
+const sendNotification = __nccwpck_require__(3023)
+
+// most @actions toolkit packages have async methods
+async function run() {
+  try {
+    const url = core.getInput('url', {required: true})
+    core.info(github.context)
+    sendNotification(url, github.context)
+    core.setOutput('url', url);
+  } catch (error) {
+    core.setFailed(error.message);
+  }
+}
+
+run();
+
+
+/***/ }),
+
+/***/ 3023:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-const github = __nccwpck_require__(5438);
 var axios = __nccwpck_require__(6545);
 
 
-let sendNotification = function () {
+let sendNotification = function (url, context) {
     return new Promise((resolve, reject) => {
         try {
-
-          const {owner, repo} = github.context.repo
-          const pullRequestPayload = github.context.payload
+          const {owner, repo} = context.repo
+          const pullRequestPayload = context.payload
           const pullRequest = pullRequestPayload.pull_request
+
           var data = '{"text" : "['+owner+'/'+repo+'] - PR '+pullRequest.user.login+' opened '+pullRequest.html_url+'  ('+pullRequest.title+')"}';
 
           var config = {
             method: 'post',
-            url: 'https://chat.googleapis.com/v1/spaces/AAAA7OKsf0M/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=2tWgZ47_zVfbjD96NyjOCHQqJapONCVDTSro4uhkwd8%3D',
+            url: url,
             headers: { 
               'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -29158,7 +29158,6 @@ let sendNotification = function () {
           };
             
             let response = axios(config)
-            console.log(github.context)
           return resolve(response);
         } catch (error) {
           console.log("error :>> ", error);
@@ -29347,7 +29346,7 @@ module.exports = require("zlib");;
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nccwpck_require__(2932);
+/******/ 	return __nccwpck_require__(4351);
 /******/ })()
 ;
 //# sourceMappingURL=index.js.map
