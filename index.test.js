@@ -3,6 +3,9 @@ const process = require('process');
 const cp = require('child_process');
 const path = require('path');
 
+
+const PR_JSON = {"repo": "test", owner: "yo"} 
+
 test('throws invalid url', async () => {
   await expect(sendNotification('foo')).rejects.toThrow('url not valid');
 });

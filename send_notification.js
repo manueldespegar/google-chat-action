@@ -20,7 +20,7 @@ let sendNotification = function (url, context) {
           };
             
             let response = axios(config)
-          return resolve(response);
+          return resolve("response");
         } catch (error) {
           console.log("error :>> ", error);
           return reject(error);
