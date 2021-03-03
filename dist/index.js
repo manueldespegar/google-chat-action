@@ -29136,18 +29136,17 @@ function wrappy (fn, cb) {
 /***/ 2913:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
+/* eslint-disable */
 var axios = __nccwpck_require__(6545);
 
-
 let sendNotification = function (url, context) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
           const {owner, repo} = context.repo
           const pullRequestPayload = context.payload
           const pullRequest = pullRequestPayload.pull_request
 
           var data = '{"text" : "['+owner+'/'+repo+'] - PR '+pullRequest.user.login+' opened '+pullRequest.html_url+'  ('+pullRequest.title+')"}';
-
           var config = {
             method: 'post',
             url: url,
@@ -29155,10 +29154,9 @@ let sendNotification = function (url, context) {
               'Content-Type': 'application/json; charset=UTF-8'
             },
             data : data
-          };
-            
-            let response = axios(config)
-          return resolve("response");
+          };  
+          const response = await axios(config)
+          return resolve(response.status)
         } catch (error) {
           console.log("error :>> ", error);
           return reject(error);
