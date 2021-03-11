@@ -56,15 +56,14 @@ Add `notify.yml` to `.github/workflows/`
 name: notify
 on:
   pull_request:
-    types: [opened, reopened, closed]
-  pull_request_review_comment:
-    types: [created]
+    types: [opened]
 jobs:
   notify:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted]
+    continue-on-error: false
     steps:
     - name: Google Chat Notification
-      uses: despegar/google-chat-action@v0.0.1
+      uses: despegar/google-chat-action@v0.0.2
       with:
         url: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
 ```
