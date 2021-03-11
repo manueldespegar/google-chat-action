@@ -6,7 +6,6 @@ const sendNotification = require('./send_notification')
 async function run() {
   try {
     const url = core.getInput('url', {required: true})
-    core.info(github.context)
     sendNotification(url, github.context)
     core.setOutput('url', url);
   } catch (error) {
